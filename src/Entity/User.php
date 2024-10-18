@@ -5,22 +5,31 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 180)]
+    private ?string $email = null;
+
+    /**
+     * @var list<string> The user roles
+     */
     #[ORM\Column]
-    private ?bool $isAdmin = null;
+    private array $roles = [];
 
-    #[ORM\Column(length: 50)]
-    private ?string $identifiant = null;
-
-    #[ORM\Column(length: 50)]
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
     private ?string $password = null;
 
     #[ORM\Column]
@@ -30,9 +39,6 @@ class User
     private ?\DateTimeInterface $updated_at = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $confirmed_at = null;
-
-    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deleted_at = null;
 
     public function getId(): ?int
@@ -40,30 +46,55 @@ class User
         return $this->id;
     }
 
-    public function isAdmin(): ?bool
+    public function getEmail(): ?string
     {
-        return $this->isAdmin;
+        return $this->email;
     }
 
-    public function setAdmin(bool $isAdmin): static
+    public function setEmail(string $email): static
     {
-        $this->isAdmin = $isAdmin;
+        $this->email = $email;
 
         return $this;
     }
 
-    public function getIdentifiant(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
     {
-        return $this->identifiant;
+        return (string) $this->email;
     }
 
-    public function setIdentifiant(string $identifiant): static
+    /**
+     * @see UserInterface
+     *
+     * @return list<string>
+     */
+    public function getRoles(): array
     {
-        $this->identifiant = $identifiant;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @param list<string> $roles
+     */
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
 
         return $this;
     }
 
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -74,6 +105,15 @@ class User
         $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -96,18 +136,6 @@ class User
     public function setUpdatedAt(?\DateTimeInterface $updated_at): static
     {
         $this->updated_at = $updated_at;
-
-        return $this;
-    }
-
-    public function getConfirmedAt(): ?\DateTimeImmutable
-    {
-        return $this->confirmed_at;
-    }
-
-    public function setConfirmedAt(?\DateTimeImmutable $confirmed_at): static
-    {
-        $this->confirmed_at = $confirmed_at;
 
         return $this;
     }
