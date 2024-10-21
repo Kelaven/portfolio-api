@@ -20,6 +20,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: #000;
+  font-family: "Roboto", sans-serif;
 }
 
 /* Conteneur principal pour le formulaire de connexion */
@@ -36,10 +37,9 @@ body {
   background-color: #333;
   color: #fff;
   padding: 24px;
-  border-radius: 8px;
+  border-radius: 2px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
   width: 100%;
-  max-width: 400px;
 }
 
 /* Titres */
@@ -48,6 +48,7 @@ body {
   font-weight: bold;
   margin-bottom: 24px;
   text-align: center;
+  font-family: "Space Grotesk", sans-serif;
 }
 
 /* Groupes de champs de saisie */
@@ -66,7 +67,7 @@ body {
 .form-input {
   width: 100%;
   padding: 10px;
-  border-radius: 4px;
+  border-radius: 2px;
   border: 1px solid #444;
   background-color: #444;
   color: #fff;
@@ -81,11 +82,11 @@ body {
 
 /* Bouton de connexion */
 .login-button {
-  background-color: #3498db;
-  color: #fff;
+  background-color: #fff;
+  color: #000;
   font-weight: bold;
   padding: 12px;
-  border-radius: 4px;
+  border-radius: 2px;
   width: 100%;
   cursor: pointer;
   border: none;
@@ -95,7 +96,8 @@ body {
 }
 
 .login-button:hover {
-  background-color: #2980b9;
+  background-color: #000;
+  color: #fff;
 }
 
 /* Messages d'erreur */
@@ -103,7 +105,7 @@ body {
   background-color: #e74c3c;
   color: #fff;
   padding: 8px;
-  border-radius: 4px;
+  border-radius: 2px;
   margin-bottom: 16px;
   text-align: center;
 }
@@ -119,6 +121,12 @@ body {
 }
 
 .logout-link {
-  color: #3498db; /* bleu */
+  color: #3498db;
   text-decoration: underline;
+}
+
+@media (min-width: 640px) {
+  .login-form {
+    max-width: 400px;
+  }
 }
