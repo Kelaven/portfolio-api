@@ -36,6 +36,14 @@ class Project
     #[ORM\ManyToOne(inversedBy: 'projects')]
     private ?User $user = null;
 
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]    // En utilisant #[ORM\PrePersist] et #[ORM\PreUpdate], vous vous assurez que le contenu est nettoyé avant d'être enregistré dans la base de données, que ce soit lors de la création ou de la mise à jour.
+    public function cleanDescription(): void
+    {
+        // Supprime toutes les balises HTML du champ description
+        $this->description = strip_tags($this->description);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
