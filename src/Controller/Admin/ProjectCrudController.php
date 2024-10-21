@@ -28,6 +28,7 @@ class ProjectCrudController extends AbstractCrudController
                 'Bootstrap' => 'bootstrap',
                 'Tailwind' => 'tailwind',
                 'JavaScript' => 'javascript',
+                'TypeScript' => 'typescript',
                 'React' => 'react',
                 'Next.js' => 'nextjs',
                 'PHP' => 'php',
