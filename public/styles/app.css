@@ -1,0 +1,124 @@
+/* Réinitialisation des styles de base et réglages généraux */
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #000;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #000;
+}
+
+/* Conteneur principal pour le formulaire de connexion */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  width: 100%;
+}
+
+/* Formulaire de connexion */
+.login-form {
+  background-color: #333;
+  color: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Titres */
+.login-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* Groupes de champs de saisie */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+/* Champs de saisie */
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background-color: #444;
+  color: #fff;
+  font-size: 1em;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  border-color: #3498db;
+}
+
+/* Bouton de connexion */
+.login-button {
+  background-color: #3498db;
+  color: #fff;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 4px;
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  font-size: 1em;
+  margin-top: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #2980b9;
+}
+
+/* Messages d'erreur */
+.error-message {
+  background-color: #e74c3c;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* Messages utilisateur connecté */
+.user-logged {
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.user-identifier {
+  font-weight: bold;
+}
+
+.logout-link {
+  color: #3498db; /* bleu */
+  text-decoration: underline;
+}
