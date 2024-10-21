@@ -16,14 +16,17 @@ class ApiController extends AbstractController
         $projects = $projectRepository->findAll();
 
 
-        // if (empty($projects)) {
-        //     return $this->json(['message' => 'Aucun projet trouvé'], 404);
-        // } else {
-        //     var_dump($projects);
-        // }
+        // Extraire les informations souhaitées de chaque projet
+        $projectData = array_map(function ($project) {
+            return [
+                'name' => $project->getName(),
+                'description' => $project->getDescription(),
+                'languages' => $project->getLanguages(),
+            ];
+        }, $projects);
 
 
-        // Retourne les projets au format JSON
-        return $this->json($projects);
+        // Retourne les informations des projets au format JSON
+        return $this->json($projectData);
     }
 }
