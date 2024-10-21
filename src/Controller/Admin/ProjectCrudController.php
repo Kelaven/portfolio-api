@@ -9,6 +9,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+
 
 class ProjectCrudController extends AbstractCrudController
 {
@@ -42,7 +44,11 @@ class ProjectCrudController extends AbstractCrudController
                 'Microsoft Office' => 'microsoft_office',
             ])
             ->allowMultipleChoices(true);
-
+        yield ImageField::new('picture')
+            ->setBasePath('/uploads/images')
+            ->setUploadDir('public/uploads/images')
+            ->setUploadedFileNamePattern('[randomhash].[extension]')
+            ->setRequired(false);
         $createdAt = DateTimeField::new('created_at')->setFormTypeOptions([
             'years' => range(date('Y'), date('Y') + 5),
             'widget' => 'single_text',

@@ -22,6 +22,7 @@ class ApiController extends AbstractController
                 'name' => $project->getName(),
                 'description' => $project->getDescription(),
                 'languages' => $project->getLanguages(),
+                'picture' => $this->getParameter('app.base_url') . '/uploads/images/' . $project->getPicture(),
             ];
         }, $projects);
 

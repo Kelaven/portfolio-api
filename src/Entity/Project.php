@@ -37,6 +37,9 @@ class Project
     #[ORM\ManyToOne(inversedBy: 'projects')]
     private ?User $user = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $picture = null;
+
     #[ORM\PrePersist]
     #[ORM\PreUpdate]    // En utilisant #[ORM\PrePersist] et #[ORM\PreUpdate], vous vous assurez que le contenu est nettoyé avant d'être enregistré dans la base de données, que ce soit lors de la création ou de la mise à jour.
     public function cleanDescription(): void
@@ -134,6 +137,18 @@ class Project
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): static
+    {
+        $this->picture = $picture;
 
         return $this;
     }
