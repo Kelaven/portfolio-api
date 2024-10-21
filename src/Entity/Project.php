@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Project
 {
     #[ORM\Id]
@@ -92,12 +93,16 @@ class Project
     {
         return $this->updated_at;
     }
+    #[ORM\PreUpdate]
+    // public function setUpdatedAt(?\DateTimeInterface $updated_at): static
+    // {
+    //     $this->updated_at = $updated_at;
 
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): static
+    //     return $this;
+    // }
+    public function setUpdatedAtValue(): void
     {
-        $this->updated_at = $updated_at;
-
-        return $this;
+        $this->updated_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
     }
 
     public function getDeletedAt(): ?\DateTimeImmutable
