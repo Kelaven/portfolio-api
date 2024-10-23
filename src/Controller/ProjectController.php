@@ -78,7 +78,7 @@ final class ProjectController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $project->getId(), $request->getPayload()->getString('_token'))) {
             $project->setDeletedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
-            $entityManager->persist($project);
+            $entityManager->persist($project); // ! remove remplacé par persist pour l'archivage
             $entityManager->flush();
         }
 
