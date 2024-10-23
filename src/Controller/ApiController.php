@@ -12,8 +12,9 @@ class ApiController extends AbstractController
     #[Route('/api/projects', name: 'api_projects', methods: ['GET'])]
     public function getProjects(ProjectRepository $projectRepository): JsonResponse
     {
-        // Récupère tous les projets depuis la base de données
-        $projects = $projectRepository->findAll();
+        // $projects = $projectRepository->findAll();         // Récupère tous les projets depuis la base de données
+        // Récupère tous les projets non archivés grâce au ProjectRepository :
+        $projects = $projectRepository->findActiveProjects();
 
 
         // Extraire les informations souhaitées de chaque projet

@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use Doctrine\ORM\EntityManagerInterface;
 
 
 class ProjectCrudController extends AbstractCrudController
@@ -30,11 +31,15 @@ class ProjectCrudController extends AbstractCrudController
                 'Bootstrap' => 'Bootstrap',
                 'Tailwind' => 'Tailwind',
                 'JavaScript' => 'JavaScript',
+                'GSAP' => 'GSAP',
                 'TypeScript' => 'TypeScript',
+                'JSX' => 'JSX',
                 'React' => 'React',
                 'Next.js' => 'Next.js',
+                'Three.js' => 'Three.js',
                 'PHP' => 'PHP',
                 'Symfony' => 'Symfony',
+                'MySQL' => 'MySQL',
                 'WordPress' => 'WordPress',
                 'Figma' => 'Figma',
                 'Photoshop' => 'Photoshop',
@@ -59,7 +64,18 @@ class ProjectCrudController extends AbstractCrudController
             yield $createdAt; // Afficher normalement lors de la création
         }
 
-        yield DateTimeField::new('updated_at')->hideOnForm(); // Afficher uniquement en lecture seule
-        yield DateTimeField::new('deleted_at')->hideOnForm(); // Afficher uniquement en lecture seule
+        yield DateTimeField::new('updated_at')->hideOnForm();
+        yield DateTimeField::new('deleted_at')->hideOnForm();
+    }
+
+    // Modifier le comportement par défaut de EasyAdmin, qui appelle la méthode remove() par défaut quand on supprime un élément : 
+    public function deleteEntity(EntityManagerInterface $entityManager, $entity): void
+    {
+        if ($entity instanceof Project) {
+            // Au lieu de supprimer, marquer comme supprimé :
+            $entity->setDeletedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
+            $entityManager->persist($entity);
+            $entityManager->flush();
+        }
     }
 }

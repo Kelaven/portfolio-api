@@ -41,7 +41,7 @@ class Project
     private ?string $picture = null;
 
     #[ORM\PrePersist]
-    #[ORM\PreUpdate]    // En utilisant #[ORM\PrePersist] et #[ORM\PreUpdate], vous vous assurez que le contenu est nettoyé avant d'être enregistré dans la base de données, que ce soit lors de la création ou de la mise à jour.
+    #[ORM\PreUpdate]    // #[ORM\PrePersist] et #[ORM\PreUpdate] pour s'assurer que le contenu est nettoyé avant d'être enregistré dans la BDD, que ce soit lors de la création ou de la mise à jour
     public function cleanDescription(): void
     {
         // Supprime toutes les balises HTML du champ description
@@ -105,13 +105,8 @@ class Project
     {
         return $this->updated_at;
     }
-    #[ORM\PreUpdate]
-    // public function setUpdatedAt(?\DateTimeInterface $updated_at): static
-    // {
-    //     $this->updated_at = $updated_at;
 
-    //     return $this;
-    // }
+    #[ORM\PreUpdate]
     public function setUpdatedAtValue(): void
     {
         $this->updated_at = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
